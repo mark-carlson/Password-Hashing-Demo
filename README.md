@@ -7,6 +7,6 @@
 ## Instructions
 ```
 npm install
-node server
+npm start
 ```
 Open a browser to http://localhost:3000
