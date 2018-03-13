@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+    .api-response {
+        font-family: monospace;
+    }
+    .code-display {
+        margin-top: 20px;
+        font-family: monospace;
+        text-align: left;
+    }
+    hr {
+        margin: 80px;
+    }
+    </style>
+  </head>
+  <body>
+      <div class="container-fluid">
+          <div class="row">
+              <h1>Hash Password</h1>
+          </div>
+          <div class="row">
+              <div class="col-sm">
+                  <h2>Form</h2>
+                  <form id="form-data">
+                  <div class="form-group">
+                    <lable for="content">Enter content to send:</lable>
+                    <input type="text" id="content" name="content" placeholder="Enter text here" class="form-control" />
+                  </div>
+                    <button id="send-data" type="submit" class="btn btn-dark">Send</button>
+                  </form>
+                  <div class="card code-display">
+                      <div class="card-body">
+                            var encryptedData = crypto.createHash('sha256').update(req.body.content).digest('hex');
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm">
+                  <h2>Data On Server</h1>
+                  <div class="card">
+                      <div class="card-body">
+                        <p id="api-response" class="api-response"></p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <hr>
+          <div class="row">
+                <h1>Hash Password With Salt</h1>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+                <h2>Form</h2>
+                <form id="form-data2">
+                <div class="form-group">
+                  <lable for="content">Enter content to send:</lable>
+                  <input type="text" id="content2" name="content2" placeholder="Enter text here" class="form-control" />
+                </div>
+                  <button id="send-data2" type="submit" class="btn btn-dark">Send</button>
+                </form>
+                <div class="card code-display">
+                    <div class="card-body">
+                          var SALT = '$b8&uuiE1!?>PoQxYVp%yT'; <br />
+                          var encryptedData = crypto.createHash('sha256').update(SALT + req.body.content).digest('hex');
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <h2>Data On Server</h2>
+                <div class="card">
+                    <div class="card-body">
+                      <p id="api-response2" class="api-response"></p>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <hr>
+          <div class="row">
+                <h1>BCrypt</h1>
+          </div>
+          <div class="row">
+            <div class="col-sm">
+                <h2>Form</h2>
+                <form id="form-data3">
+                <div class="form-group">
+                  <lable for="content">Enter content to send:</lable>
+                  <input type="text" id="content3" name="content3" placeholder="Enter text here" class="form-control" />
+                </div>
+                  <button id="send-data3" type="submit" class="btn btn-dark">Send</button>
+                </form>
+                <div class="card code-display">
+                    <div class="card-body">
+                            bcrypt.hash(req.body.content, 10, function(err, hash) { <br>
+                                // Store hash in your password DB.<br>
+                                res.json({content: hash});<br>
+                              });<br><br>
+
+                            bcrypt.compare(myPlaintextPassword, hash).then(function(res) { <br>
+                                // res === true || res === false <br>
+                            });
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <h2>Data On Server</h2>
+                <div class="card">
+                    <div class="card-body">
+                      <p id="api-response3" class="api-response"></p>
+                    </div>
+                </div>
+            </div>
+          </div>
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $("#send-data").on('click', (evt) => {
+            evt.preventDefault();
+            console.log('form-data', $("#form-data").serialize());
+            $.ajax({
+                url: '/submitdata',
+                data: $("#form-data").serialize(),
+                type: 'POST',
+                success: data => {
+                    $("#api-response").append(`<p>${$("#content").val()}</p><p>${data.content}</p><br />`);
+                },
+                error: error => console.error(`got this error: ${error}`)
+            });
+        });
+
+        $("#send-data2").on('click', (evt) => {
+            evt.preventDefault();
+            console.log('form-data2', $("#form-data2").serialize());
+            $.ajax({
+                url: '/submitdata2',
+                data: $("#form-data2").serialize(),
+                type: 'POST',
+                success: data => {
+                    $("#api-response2").append(`<p>${$("#content2").val()}</p><p>${data.content}</p><br />`);
+                },
+                error: error => console.error(`got this error: ${error}`)
+            });
+        });
+
+        $("#send-data3").on('click', (evt) => {
+            evt.preventDefault();
+            console.log('form-data3', $("#form-data3").serialize());
+            $.ajax({
+                url: '/submitdata3',
+                data: $("#form-data3").serialize(),
+                type: 'POST',
+                success: data => {
+                    $("#api-response3").append(`<p>${$("#content3").val()}</p><p>${data.content}</p><br />`);
+                },
+                error: error => console.error(`got this error: ${error}`)
+            });
+        });
+    </script>
+  </body>
+</html>

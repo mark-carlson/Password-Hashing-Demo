@@ -1,0 +1,57 @@
+var express = require("express");
+var bodyParser = require("body-parser");
+var logger = require("morgan");
+var crypto = require('crypto');
+var bcrypt = require('bcrypt');
+
+var PORT = 3000;
+
+// Initialize Express
+var app = express();
+
+// Configure middleware
+
+// Use morgan logger for logging requests
+app.use(logger("dev"));
+// Use body-parser for handling form submissions
+app.use(bodyParser.urlencoded({ extended: true }));
+// Use express.static to serve the public folder as a static directory
+app.use(express.static("public"));
+
+// Routes
+
+// Route to post our form submission to mongoDB via mongoose
+app.post("/submitdata", function(req, res) {
+  // Create a new user using req.body
+  console.log('req.body', req.body);
+  var encryptedData = crypto.createHash('sha256').update(req.body.content).digest('hex');
+  console.log('encrypted data', encryptedData);
+  res.json({content: encryptedData});
+
+});
+
+app.post("/submitdata2", function(req, res) {
+  // Create a new user using req.body
+  console.log('req.body', req.body);
+  var SALT = '$b8&uuiE1!?>PoQxYVp%yT';
+  var encryptedData = crypto.createHash('sha256').update(SALT + req.body.content2).digest('hex');
+  console.log('encrypted data', encryptedData);
+  res.json({content: encryptedData});
+
+});
+
+app.post("/submitdata3", function(req, res) {
+  // Create a new user using req.body
+  console.log('req.body', req.body);
+  bcrypt.hash(req.body.content3, 10, function(err, hash) {
+    // Store hash in your password DB.
+    console.log('hash', hash);
+    res.json({content: hash});
+  });
+
+});
+
+// Start the server
+app.listen(PORT, function() {
+  console.log("App running on port " + PORT + "!");
+});
