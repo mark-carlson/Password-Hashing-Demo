@@ -43,7 +43,7 @@ app.post("/submitdata2", function(req, res) {
 app.post("/submitdata3", function(req, res) {
   // Create a new user using req.body
   console.log('req.body', req.body);
-  bcrypt.hash(req.body.content3, 10, function(err, hash) {
+  bcrypt.hash(req.body.content3, Number(req.body.saltRoundsNumber) || 10, function(err, hash) {
     // Store hash in your password DB.
     console.log('hash', hash);
     res.json({content: hash});

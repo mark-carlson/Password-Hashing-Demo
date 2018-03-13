@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title>Password Security Demo</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,6 +19,11 @@
     }
     hr {
         margin: 80px;
+    }
+    h1 {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 25px;
     }
     </style>
   </head>
@@ -61,7 +66,7 @@
                 <h2>Form</h2>
                 <form id="form-data2">
                 <div class="form-group">
-                  <lable for="content">Enter content to send:</lable>
+                  <lable for="content2">Enter content to send:</lable>
                   <input type="text" id="content2" name="content2" placeholder="Enter text here" class="form-control" />
                 </div>
                   <button id="send-data2" type="submit" class="btn btn-dark">Send</button>
@@ -91,14 +96,16 @@
                 <h2>Form</h2>
                 <form id="form-data3">
                 <div class="form-group">
-                  <lable for="content">Enter content to send:</lable>
+                  <lable for="content3">Enter content to send:</lable>
                   <input type="text" id="content3" name="content3" placeholder="Enter text here" class="form-control" />
+                  <label for="saltRounds">Enter Salt Rounds</label>
+                  <input type="number" id="saltRoundsNumber" name="saltRoundsNumber" placeholder="Salt Rounds" class="form-control" />
                 </div>
                   <button id="send-data3" type="submit" class="btn btn-dark">Send</button>
                 </form>
                 <div class="card code-display">
                     <div class="card-body">
-                            bcrypt.hash(req.body.content, 10, function(err, hash) { <br>
+                            bcrypt.hash(req.body.content, Number(req.body.saltRoundsNumber) || 10, function(err, hash) { <br>
                                 // Store hash in your password DB.<br>
                                 res.json({content: hash});<br>
                               });<br><br>
