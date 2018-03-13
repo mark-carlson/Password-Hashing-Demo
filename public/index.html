@@ -37,14 +37,20 @@
                   <h2>Form</h2>
                   <form id="form-data">
                   <div class="form-group">
-                    <lable for="content">Enter content to send:</lable>
+                    <label for="content">Enter content to send:</label>
                     <input type="text" id="content" name="content" placeholder="Enter text here" class="form-control" />
+                    <br />
+                    <label for="shaVersion">Select SHA algorithm:</label>
+                    <select id="shaVersion" name='shaVersion' class="form-control">
+                        <option value="sha1">SHA1 algorithm</option>
+                        <option value="sha256">SHA256 algorithm</option>
+                    </select>
                   </div>
                     <button id="send-data" type="submit" class="btn btn-dark">Send</button>
                   </form>
                   <div class="card code-display">
                       <div class="card-body">
-                            var encryptedData = crypto.createHash('sha256').update(req.body.content).digest('hex');
+                            var encryptedData = crypto.createHash(req.body.shaVersion).update(req.body.content).digest('hex');
                       </div>
                   </div>
               </div>
@@ -96,9 +102,10 @@
                 <h2>Form</h2>
                 <form id="form-data3">
                 <div class="form-group">
-                  <lable for="content3">Enter content to send:</lable>
+                  <label for="content3">Enter content to send:</label>
                   <input type="text" id="content3" name="content3" placeholder="Enter text here" class="form-control" />
-                  <label for="saltRounds">Enter Salt Rounds</label>
+                  <br />
+                  <label for="saltRounds">Enter Salt Rounds { >15 === <i>slow!</i> }</label>
                   <input type="number" id="saltRoundsNumber" name="saltRoundsNumber" placeholder="Salt Rounds" class="form-control" />
                 </div>
                   <button id="send-data3" type="submit" class="btn btn-dark">Send</button>
@@ -154,7 +161,7 @@
                 data: $("#form-data2").serialize(),
                 type: 'POST',
                 success: data => {
-                    $("#api-response2").append(`<p>${$("#content2").val()}</p><p>${data.content}</p><br />`);
+                    $("#api-response2").append(`<p>${$("#content2").val()} (${$("#shaVersion").val()})</p><p>${data.content}</p><br />`);
                 },
                 error: error => console.error(`got this error: ${error}`)
             });

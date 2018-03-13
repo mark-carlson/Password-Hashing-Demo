@@ -24,7 +24,7 @@ app.use(express.static("public"));
 app.post("/submitdata", function(req, res) {
   // Create a new user using req.body
   console.log('req.body', req.body);
-  var encryptedData = crypto.createHash('sha256').update(req.body.content).digest('hex');
+  var encryptedData = crypto.createHash(req.body.shaVersion).update(req.body.content).digest('hex');
   console.log('encrypted data', encryptedData);
   res.json({content: encryptedData});
 
