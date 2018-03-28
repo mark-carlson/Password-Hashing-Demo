@@ -44,6 +44,7 @@
                     <select id="shaVersion" name='shaVersion' class="form-control">
                         <option value="sha1">SHA1 algorithm</option>
                         <option value="sha256">SHA256 algorithm</option>
+                        <option value="md5">MD5 algorithm</option>
                     </select>
                   </div>
                     <button id="send-data" type="submit" class="btn btn-dark">Send</button>
@@ -147,7 +148,7 @@
                 data: $("#form-data").serialize(),
                 type: 'POST',
                 success: data => {
-                    $("#api-response").append(`<p>${$("#content").val()}</p><p>${data.content}</p><br />`);
+                    $("#api-response").append(`<p>${$("#content").val()} - (${$("#shaVersion").val()})</p><p>${data.content}</p><br />`);
                 },
                 error: error => console.error(`got this error: ${error}`)
             });
@@ -161,7 +162,7 @@
                 data: $("#form-data2").serialize(),
                 type: 'POST',
                 success: data => {
-                    $("#api-response2").append(`<p>${$("#content2").val()} (${$("#shaVersion").val()})</p><p>${data.content}</p><br />`);
+                    $("#api-response2").append(`<p>${$("#content2").val()}</p><p>${data.content}</p><br />`);
                 },
                 error: error => console.error(`got this error: ${error}`)
             });
