@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/mark-carlson/password_security_demo.git"
   },
-  "author": "",
+  "author": "Mark Carlson",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mark-carlson/password_security_demo/issues"
