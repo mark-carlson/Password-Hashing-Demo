@@ -51,7 +51,7 @@
                   </form>
                   <div class="card code-display">
                       <div class="card-body">
-                            const encryptedData = crypto.createHash(req.body.shaVersion).update(req.body.content).digest('hex');
+                            const hashedData = crypto.createHash(req.body.shaVersion).update(req.body.content).digest('hex');
                       </div>
                   </div>
               </div>
@@ -81,7 +81,7 @@
                 <div class="card code-display">
                     <div class="card-body">
                           const SALT = '$b8&uuiE1!?>PoQxYVp%yT'; <br />
-                          const encryptedData = crypto.createHash('sha256').update(SALT + req.body.content).digest('hex');
+                          const hashedData = crypto.createHash('sha256').update(SALT + req.body.content).digest('hex');
                     </div>
                 </div>
             </div>

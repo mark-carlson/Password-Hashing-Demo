@@ -25,10 +25,10 @@ app.post("/submitdata", function(req, res) {
   // Create a new user using req.body
   console.log('req.body', req.body);
   console.time('SHA timer');
-  const encryptedData = crypto.createHash(req.body.shaVersion).update(req.body.content).digest('hex');
+  const hashedData = crypto.createHash(req.body.shaVersion).update(req.body.content).digest('hex');
   console.timeEnd('SHA timer');
-  console.log('encrypted data', encryptedData);
-  res.json({content: encryptedData});
+  console.log('hashed data', hashedData);
+  res.json({content: hashedData});
 
 });
 
@@ -37,10 +37,10 @@ app.post("/submitdata2", function(req, res) {
   console.log('req.body', req.body);
   console.time('SHA + SALT timer');
   const SALT = '$b8&uuiE1!?>PoQxYVp%yT';
-  const encryptedData = crypto.createHash('sha256').update(SALT + req.body.content2).digest('hex');
+  const hashedData = crypto.createHash('sha256').update(SALT + req.body.content2).digest('hex');
   console.timeEnd('SHA + SALT timer');
-  console.log('encrypted data', encryptedData);
-  res.json({content: encryptedData});
+  console.log('hashed data', hashedData);
+  res.json({content: hashedData});
 
 });
 
