@@ -42,9 +42,9 @@
                     <br />
                     <label for="shaVersion">Select SHA algorithm:</label>
                     <select id="shaVersion" name='shaVersion' class="form-control">
+                        <option value="md5">MD5 algorithm</option>
                         <option value="sha1">SHA1 algorithm</option>
                         <option value="sha256">SHA256 algorithm</option>
-                        <option value="md5">MD5 algorithm</option>
                     </select>
                   </div>
                     <button id="send-data" type="submit" class="btn btn-dark">Send</button>
@@ -143,42 +143,51 @@
         $("#send-data").on('click', (evt) => {
             evt.preventDefault();
             console.log('form-data', $("#form-data").serialize());
+            const start = window.performance.now();
             $.ajax({
                 url: '/submitdata',
                 data: $("#form-data").serialize(),
                 type: 'POST',
                 success: data => {
-                    $("#api-response").append(`<p>${$("#content").val()} - (${$("#shaVersion").val()})</p><p>${data.content}</p><br />`);
+                    const end = window.performance.now();
+                    const totalTime = `${(end-start)/1000} seconds`;
+                    $("#api-response").append(`<p>${$("#content").val()} - (${$("#shaVersion").val()})</p><p>${data.content} - ${totalTime}</p><br />`);
                 },
-                error: error => console.error(`got this error: ${error}`)
+                error: error => console.error(`got this error: ${JSON.stringify(error)}`)
             });
         });
 
         $("#send-data2").on('click', (evt) => {
             evt.preventDefault();
             console.log('form-data2', $("#form-data2").serialize());
+            const start = window.performance.now();
             $.ajax({
                 url: '/submitdata2',
                 data: $("#form-data2").serialize(),
                 type: 'POST',
                 success: data => {
-                    $("#api-response2").append(`<p>${$("#content2").val()}</p><p>${data.content}</p><br />`);
+                    const end = window.performance.now();
+                    const totalTime = `${(end - start) / 1000} seconds`;
+                    $("#api-response2").append(`<p>${$("#content2").val()} --> $b8&uuiE1!?>PoQxYVp%yT${$("#content2").val()}</p><p>${data.content} - ${totalTime}</p><br />`);
                 },
-                error: error => console.error(`got this error: ${error}`)
+                error: error => console.error(`got this error: ${JSON.stringify(error)}`)
             });
         });
 
         $("#send-data3").on('click', (evt) => {
             evt.preventDefault();
             console.log('form-data3', $("#form-data3").serialize());
+            const start = window.performance.now();
             $.ajax({
                 url: '/submitdata3',
                 data: $("#form-data3").serialize(),
                 type: 'POST',
                 success: data => {
-                    $("#api-response3").append(`<p>${$("#content3").val()}</p><p>${data.content}</p><br />`);
+                    const end = window.performance.now();
+                    const totalTime = `${(end - start) / 1000} seconds`;
+                    $("#api-response3").append(`<p>${$("#content3").val()}</p><p>${data.content} - ${totalTime}</p><br />`);
                 },
-                error: error => console.error(`got this error: ${error}`)
+                error: error => console.error(`got this error: ${JSON.stringify(error)}`)
             });
         });
     </script>
