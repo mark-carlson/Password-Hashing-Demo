@@ -20,6 +20,6 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "express": "^4.21.2",
-    "morgan": "^1.9.1"
+    "morgan": "^1.10.1"
   }
 }
